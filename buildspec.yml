@@ -1,0 +1,14 @@
+version: 0.2
+
+phases:
+  install:
+    commands:
+      - npm install
+  build:
+    commands:
+      - npm run build
+      - cd cdk && npm install && cdk synth && cdk deploy --require-approval never
+artifacts:
+  files:
+    - "**/*"
+  base-directory: build
