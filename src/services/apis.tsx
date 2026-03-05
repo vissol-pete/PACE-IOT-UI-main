@@ -3,15 +3,23 @@ import { UpdateUnitType } from "../types/UnitDirectory/UnitDirectoryTypes";
 import { AlertConfigResponse, AlertsState, AlertStatsParams } from "../types/Alerts/AlertTypes";
 import { SubscriptionParams } from "../types/Upgrades/upgrades";
 // Set global Axios defaults
-axios.defaults.baseURL = process.env.REACT_APP_API_ENDPOINT;
+//axios.defaults.baseURL = process.env.REACT_APP_API_ENDPOINT;
 // axios.defaults.headers.post["Content-Type"] = "application/json";
-axios.defaults.timeout = 10000; // 10 seconds
 
 // const alertsUrl = "https://xchf9hbw7k.execute-api.us-east-1.amazonaws.com/dev-PaceAI";
 // const siteUrl = "https://q550qvn3lg.execute-api.us-east-1.amazonaws.com/dev-PaceAI";
 // const unitsDataUrl = "https://q550qvn3lg.execute-api.us-east-1.amazonaws.com/dev-PaceAI";
-// Use the Amplify-provided endpoint instead
-axios.defaults.baseURL = process.env.REACT_APP_API_ENDPOINT;
+// Replace the hardcoded legacy URLs with the dynamic Amplify endpoint
+// import awsconfig from "../aws-exports"; // Adjust path as needed
+// Amplify stores the API gateway URL here automatically
+//const apiBase = awsconfig.aws_cloud_logic_custom[0].endpoint; 
+// Pull the env variable you just set in Amplify
+const apiBase = process.env.REACT_APP_API_ENDPOINT || "https://fallback-url.com";
+axios.defaults.baseURL = apiBase;
+axios.defaults.timeout = 10000; // 10 seconds
+const siteUrl = apiBase;
+const unitsDataUrl = apiBase;// Use the Amplify-provided endpoint instead
+//axios.defaults.baseURL = process.env.REACT_APP_API_ENDPOINT;
 // ---------------------------------------------------Project Directory---------------------------------------------------
 export const fetchAllProjects = async () => {
   return (await axios.get(`projects/get_projects?page_number=1&page_size=10&sort_order=desc&sort_field=projectName`)).data;
