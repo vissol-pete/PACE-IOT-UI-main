@@ -8,9 +8,10 @@ axios.defaults.baseURL = process.env.REACT_APP_API_ENDPOINT;
 axios.defaults.timeout = 10000; // 10 seconds
 
 // const alertsUrl = "https://xchf9hbw7k.execute-api.us-east-1.amazonaws.com/dev-PaceAI";
-const siteUrl = "https://q550qvn3lg.execute-api.us-east-1.amazonaws.com/dev-PaceAI";
-
-const unitsDataUrl = "https://q550qvn3lg.execute-api.us-east-1.amazonaws.com/dev-PaceAI";
+// const siteUrl = "https://q550qvn3lg.execute-api.us-east-1.amazonaws.com/dev-PaceAI";
+// const unitsDataUrl = "https://q550qvn3lg.execute-api.us-east-1.amazonaws.com/dev-PaceAI";
+// Use the Amplify-provided endpoint instead
+axios.defaults.baseURL = process.env.REACT_APP_API_ENDPOINT;
 // ---------------------------------------------------Project Directory---------------------------------------------------
 export const fetchAllProjects = async () => {
   return (await axios.get(`projects/get_projects?page_number=1&page_size=10&sort_order=desc&sort_field=projectName`)).data;
